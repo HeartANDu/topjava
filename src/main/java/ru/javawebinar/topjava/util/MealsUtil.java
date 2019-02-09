@@ -41,20 +41,4 @@ public class MealsUtil {
                                 caloriesSumByDate.get(meal.getDate()) > caloriesPerDay))
                 .collect(Collectors.toList());
     }
-
-    public static List<MealTo> getMealsWithExcess(List<Meal> meals, int caloriesPerDay) {
-        Map<LocalDate, Integer> calories = meals
-                .stream()
-                .collect(Collectors.groupingBy(Meal::getDate, Collectors.summingInt(Meal::getCalories)));
-
-        return meals
-                .stream()
-                .map(meal -> new MealTo(
-                        meal.getDateTime(),
-                        meal.getDescription(),
-                        meal.getCalories(),
-                        calories.get(meal.getDate()) > caloriesPerDay
-                ))
-                .collect(Collectors.toList());
-    }
 }
