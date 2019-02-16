@@ -1,6 +1,7 @@
 package ru.javawebinar.topjava.util;
 
 
+import ru.javawebinar.topjava.model.AbstractAssignedEntity;
 import ru.javawebinar.topjava.model.AbstractBaseEntity;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
@@ -37,6 +38,14 @@ public class ValidationUtil {
             entity.setId(id);
         } else if (entity.getId() != id) {
             throw new IllegalArgumentException(entity + " must be with id=" + id);
+        }
+    }
+
+    public static void assureEntityAssigned(AbstractAssignedEntity entity, int userId) {
+        if (!entity.isAssigned()) {
+            entity.setUserId(userId);
+        } else if (entity.getUserId() != userId) {
+            throw new IllegalArgumentException(entity + " must be assigned to userId=" + userId);
         }
     }
 }
